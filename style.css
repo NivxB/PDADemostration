@@ -1,0 +1,33 @@
+.stack{
+	height: 250px;
+    width: 100px;
+    background-color: cornflowerblue;
+}
+
+.element{
+	position: relative;
+    text-align: center;
+    border-style: none solid solid;
+    border-width: 2px;
+    border-color: darkblue;
+}
+
+.node {
+	cursor: pointer;
+}
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+
+.node text {
+  font: 12px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+}

@@ -13,6 +13,11 @@ function popValue(){
 	return STACK.pop();
 };
 
+function cleanStack(){
+	$('.element').remove();
+	STACK = [];
+}
+
 
 var treeData = [{
 	"name":"Root",
@@ -24,18 +29,55 @@ var treeData = [{
 		}
 	]
 }];
+function notAccept(){
+	console.log('NOT ACCEPT');
+};
 
-setTimeout(function(){
-	pushValue('1');
-	setTimeout(function(){
-		pushValue('0');
-		setTimeout(function(){
+
+function verifyString(){
+	cleanStack();
+	var Input = $('#userInput').val();
+	Input = Input.split('').reverse();
+	var HalfPosition = Math.ceil(Input.length / 2);
+
+	pushValue('$');
+	var nextChar = Input.pop();
+	if (nextChar == '1' || nextChar == '0'){
+		pushValue(nextChar);
+	}else{
+		notAccept();
+		return;
+	}
+
+	while(HalfPosition != Input.length){
+		var nextChar = Input.pop();
+		if (nextChar == '1' || nextChar == '0'){
+			pushValue(nextChar);
+		}else{
+			notAccept();
+			return;
+		}
+	}
+
+	for(var i = 0;i<HalfPosition;i++){
+		var nextChar = Input.pop();
+		if (STACK[STACK.length-1] == nextChar){
 			popValue();
-			//console.log(STACK);
-			//generateTree();
-		},2000);
-	},2000);
-},2000);
+		}else{
+			notAccept();
+			return;
+		}
+	}
+
+	if (STACK[STACK.length -1] == '$'){
+		console.log('ACCEPT');
+		return;
+	}else{
+		notAccept();
+		return;
+	}
+
+};
 
 
 

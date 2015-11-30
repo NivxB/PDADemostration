@@ -4,16 +4,23 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+
 	<script src="http://d3js.org/d3.v3.min.js"></script>
-	<script type="text/javascript" src="./app.js"></script>
+	<script type="text/javascript" src="./fsm.js"></script>
 	<script type="text/javascript" src="./generateTree.js"></script>
+	<script type="text/javascript" src="./app.js"></script>
 	<link rel="stylesheet" href="./style.css">
 </head>
 <body>
+	<div class='user-input'>
+	<span>Enter String</span>
+	<input id='userInput'></input>
+	<button type="button" onclick="verifyString();">Verify!</button>
+	</div>
+<div class="draw-body">
+<canvas id="canvas" width="550" height="300"></canvas>
 
-<div class="stack">
-
+<div class="stack"></div>
 </div>
-
 </body>
 </html>

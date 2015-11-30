@@ -851,25 +851,26 @@ window.onload = function() {
 		links = [];
 		draw();
 		var q0 = new Node(60, 60,'Q_0');
+		q0.isAcceptState = true;
 		nodes.push(q0);
-		var q1 = new Node(60, 180,'Q_1');
-		nodes.push(q1);
-		var q2 = new Node(240, 180,'Q_2');
+		var q2 = new Node(240, 180,'Q_1');
 		nodes.push(q2);
-		var q3 = new Node(440, 180,'Q_3');
+		var q3 = new Node(440, 180,'Q_2');
 		nodes.push(q3);
-		var q4 = new Node(440, 60,'Q_4');
+		var q4 = new Node(440, 60,'Q_3');
 		q4.isAcceptState = true;
 		nodes.push(q4);
 		resetCaret();
 		draw();
 
 		//Links
-		var initLink = new Link(q0,q1,'\\epsilon,\\epsilon->$');
-		var link2 = new Link(q1,q2,'0,\\epsilon -> 0 || 1,\\epsilon -> 1');
+		var initLink = new Link(q0,q2,'\\epsilon,\\epsilon->$');
+		initLink.parallelPart = 0.5; // percentage from nodeA to nodeB
+		initLink.perpendicularPart = 25; // pixels from line between nodeA and nodeB
+		/*var link2 = new Link(q1,q2,'0,\\epsilon -> 0 || 1,\\epsilon -> 1');
 		link2.parallelPart = 0.5; // percentage from nodeA to nodeB
 		link2.perpendicularPart = 25; // pixels from line between nodeA and nodeB
-		var link3 = new SelfLink(q2,{x:250,y:0},'0,\\epsilon -> 0 || 1,\\epsilon -> 1');
+		*/var link3 = new SelfLink(q2,{x:250,y:0},'0,\\epsilon -> 0 || 1,\\epsilon -> 1');
 		var link4 = new Link(q2,q3,'\\epsilon,\\epsilon->\\epsilon');
 		link4.parallelPart = 0.5; // percentage from nodeA to nodeB
 		link4.perpendicularPart = 25; // pixels from line between nodeA and nodeB
@@ -878,7 +879,7 @@ window.onload = function() {
 		var finalLink = new Link(q3,q4,'\\epsilon,$->\\epsilon')
 
 		links.push(initLink);
-		links.push(link2);
+		//links.push(link2);
 		links.push(link3);
 		links.push(link4);
 		links.push(link5);

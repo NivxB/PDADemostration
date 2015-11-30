@@ -10,7 +10,11 @@ function pushValue(value){
 function popValue(){
 	//$('.element')[0]
 	//$($('.element')[0]).hide("slide",{direction:'right'},100, function(){ $($('.element')[0]).remove();});
+	if (Rejected){
+		return;
+	}
 	$($('.element')[0]).remove();
+	
 	return STACK.pop();
 };
 
@@ -31,12 +35,17 @@ var treeData = [{
 	]
 }];
 
-
+var Rejected = false;
 
 function notAccept(){
-	console.log(STACK);
+	Rejected = true;
 	console.log('NOT ACCEPT');
 };
+
+function Accept(){
+	popValue();
+	console.log('ACCEPT');
+}
 
 function verifyPushValue(nextChar){
 	if (nextChar == '1' || nextChar == '0'){
@@ -58,37 +67,36 @@ function verifyPopValue(nextChar){
 
 function verifyString(){
 	cleanStack();
+	Rejected = false;
 	var Input = $('#userInput').val();
 	Input = Input.split('').reverse();
 	var HalfPosition = Math.ceil(Input.length / 2);
 
 	setTimeout(function(){
 		pushValue('$')
+		if (Input.length == 0){
+			Accept();
+		}
 		setTimeout(function(){
 			var nextChar = Input.pop();
 			setTimeout(verifyPushValue,1000,nextChar);
-			if (Input.length == 0){
-				return;
-			}
-			while(HalfPosition != Input.length){	
+			
+			while(HalfPosition != Input.length && Input.length > 0){	
 				var nextChar = Input.pop();
 				setTimeout(verifyPushValue,1000,nextChar);
 			}
 
-			for(var i = 0;i<HalfPosition;i++){
-				var nextChar = Input.pop();
-				setTimeout(verifyPopValue,2000,nextChar);	
+			if (Input.length > 0){
+				for(var i = 0;i<HalfPosition;i++){
+					var nextChar = Input.pop();
+					setTimeout(verifyPopValue,1000,nextChar);	
+				}
 			}
-			
 			setTimeout(function(){
 				if (STACK[STACK.length -1] == '$'){
-					popValue();
-					console.log('ACCEPT');
-					return;
+					Accept();
 				}else{
-					alert('No accept');
 					notAccept();
-					return;
 				}
 			},3000);
 		},1000);
